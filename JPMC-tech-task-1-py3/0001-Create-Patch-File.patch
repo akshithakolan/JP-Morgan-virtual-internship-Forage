@@ -1,0 +1,83 @@
+From e5b78ea0fea1958d42ca6b6dd96fb2e7bc4c1782 Mon Sep 17 00:00:00 2001
+From: akshitha kolanupaka <akshithakolan@gmail.com>
+Date: Mon, 27 May 2024 16:43:13 +0530
+Subject: [PATCH] Create Patch File
+
+---
+ .DS_Store      | Bin 0 -> 6148 bytes
+ client3.py     |   6 +++---
+ client_test.py |   6 ++++--
+ 3 files changed, 7 insertions(+), 5 deletions(-)
+ create mode 100644 .DS_Store
+
+diff --git a/.DS_Store b/.DS_Store
+new file mode 100644
+index 0000000000000000000000000000000000000000..e0163ba5518f1b3c90464155f012e7e016619d3d
+GIT binary patch
+literal 6148
+zcmeHK!AiqG5Pe&Fh!wO)FGBDt6pANrX-N+vUhK__+BT?|Hbra2Tkc-`6aT`05(Is-
+zyOboY9*f8f%)DfFUS{(WvRMG8`#5R?O#lI1u(rvt!em^0$!b0$JR{dguiO1$Hl8k3
+zYT~adAkVIj7OruNS?T$igQMcuIE&*!nhlr>_Rl|)liGWyJU;q$e0o!OH)^k>qJbe&
+z_DwLs42PV>6wk+LHuQburF^5ezN`ra+a=Bgc?ljES8-*2MeYvH&_f3?PKhmyafN%_
+zVT24%n3Ox4y$ZX*J_+mRHm;nld8u%M!u*Eh&nrDXD)l^7Qw3B3RbUMYaLpDAwj63y
+z1yli5V4;9~A40ld<S}<>KOGEq3qY(hZH>qB+a{dQW8^V+$Pt=xRHCCAzr`?)&V1<W
+zB9FO4M~Cs7592!<ze6#$JFg$wa+t`WMpZx+C@ZkxPMfm+_kQ00mq~i23aA4AN&!=k
+z`*D}I<k!}vo0GLRq+im-q%L>3pzy#h#jKU3c$aRC`A`msk;mL2Gc^4Xurg>+1=gy-
+EH=J>9UH||9
+
+literal 0
+HcmV?d00001
+
+diff --git a/client3.py b/client3.py
+index f1771c3..d1b0b66 100644
+--- a/client3.py
++++ b/client3.py
+@@ -35,14 +35,14 @@ def getDataPoint(quote):
+ 	stock = quote['stock']
+ 	bid_price = float(quote['top_bid']['price'])
+ 	ask_price = float(quote['top_ask']['price'])
+-	price = bid_price
++	price = (bid_price + ask_price) / 2
+ 	return stock, bid_price, ask_price, price
+ 
+ def getRatio(price_a, price_b):
+ 	""" Get ratio of price_a and price_b """
+ 	""" ------------- Update this function ------------- """
+ 	""" Also create some unit tests for this function in client_test.py """
+-	return 1
++	return price_a to stock price_b
+ 
+ # Main
+ if __name__ == "__main__":
+@@ -56,4 +56,4 @@ if __name__ == "__main__":
+ 			stock, bid_price, ask_price, price = getDataPoint(quote)
+ 			print ("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
+ 
+-		print ("Ratio %s" % getRatio(price, price))
++		print ("Ratio %s" % getRatio(price["ABC"], price["DEF"]))
+diff --git a/client_test.py b/client_test.py
+index af2bf26..913a747 100644
+--- a/client_test.py
++++ b/client_test.py
+@@ -8,14 +8,16 @@ class ClientTest(unittest.TestCase):
+       {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+     ]
+     """ ------------ Add the assertion below ------------ """
+-
++for quote in quotes:
++  self.aasertequal(getDataPoint(quote),(quote['stock'],quote['top_bid']['price'],n quote['top_ask']['price'],(quote['top_bid']['price'] + quote['top_ask']['price'])/2))
+   def test_getDataPoint_calculatePriceBidGreaterThanAsk(self):
+     quotes = [
+       {'top_ask': {'price': 119.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
+       {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+     ]
+     """ ------------ Add the assertion below ------------ """
+-
++for quote in quotes:
++  self.aasertequal(getDataPoint(quote),(quote['stock'],quote['top_bid']['price'],n quote['top_ask']['price'],(quote['top_bid']['price'] + quote['top_ask']['price'])/2))
+ 
+   """ ------------ Add more unit tests ------------ """
+ 
+-- 
+2.42.1
+
